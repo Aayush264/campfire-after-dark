@@ -19,8 +19,10 @@ Built using React, Ollama and Kokoro ONNX, CAMPFIRE brings locally powered AI st
 ### Home Page
 ![CAMPFIRE Home Page](docs/screenshots/Home-page.png)
 
+
 ### Immersive Story Player
 ![CAMPFIRE Story Player](docs/screenshots/Story-player.png)
+
 
 ### Saved Stories
 ![CAMPFIRE Saved Stories](docs/screenshots/Saved-Stories.png)
