@@ -1,0 +1,235 @@
+/* Visual storytelling layer: bundled vector scene art, cinema transitions and scare reveal. */
+.forest-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid #393329;
+  border-radius: 15px;
+  background: #080d12;
+  box-shadow: 0 18px 60px #0005;
+}
+
+.forest-scene.hero-art { height: 285px; }
+.forest-scene.story-art { height: 430px; min-height: 340px; }
+
+.scene-background-image {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .95;
+  transform: scale(1.035);
+  animation: scene-arrives 1.25s cubic-bezier(.2,.65,.25,1) both, scene-slow-drift 24s ease-in-out infinite alternate;
+  user-select: none;
+}
+
+.scene-image-vignette {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, #02050917 0%, transparent 30%, #02040336 68%, #030605d9 100%),
+    linear-gradient(90deg, #02060766 0%, transparent 38%, transparent 70%, #02060748 100%);
+}
+
+.scene-atmosphere {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  mix-blend-mode: screen;
+  transition: opacity 900ms ease, background 900ms ease;
+}
+
+.atmosphere-calm { background: radial-gradient(ellipse at 50% 88%, #e77a2a45, transparent 45%); opacity: .6; }
+.atmosphere-uneasy { background: linear-gradient(180deg, #1a29381c, #0d1b2c22); opacity: .48; }
+.atmosphere-tense { background: radial-gradient(ellipse at center, transparent 24%, #07111f90 100%); opacity: .8; }
+.atmosphere-reveal { background: radial-gradient(ellipse at center, #7a181a32 0%, #19060940 54%, #000 100%); opacity: .9; }
+
+.scene-film-grain {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  opacity: .1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+.scene-caption {
+  position: absolute;
+  z-index: 5;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 44px 22px 18px;
+  background: linear-gradient(transparent, #050807ed 56%);
+}
+
+.scene-caption span,
+.scene-caption small {
+  color: #d0bda8;
+  font-size: 8px;
+  letter-spacing: 1.8px;
+}
+
+.scene-caption strong {
+  color: #f1e7db;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(14px, 1.7vw, 19px);
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.35;
+  text-shadow: 0 2px 12px #000;
+}
+
+.story-visual-column { min-width: 0; }
+.story-visual-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: #c9a27f;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+}
+.story-visual-note span { color: #696157; }
+
+.visual-direction-card {
+  margin-top: 16px;
+  padding: 15px 16px;
+  border: 1px solid #38342d;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #171815, #101210);
+}
+.visual-direction-card > span {
+  color: #d19a6c;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+.visual-direction-card p {
+  margin: 9px 0 12px;
+  color: #c1b9ad;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  line-height: 1.75;
+}
+.scene-meta-row { display: flex; flex-wrap: wrap; gap: 8px 14px; color: #8e887e; font-size: 8px; letter-spacing: 1.1px; }
+
+.visual-story-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 12px;
+  color: #7f7a71;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.visual-story-note-icon { color: #c78e61; font-size: 16px; }
+
+/* Full-screen, brief reveal using the bundled original jumpscare SVG. */
+.jump-scare-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #020202;
+  animation: scare-screen-in 1350ms ease-out both;
+  pointer-events: none;
+}
+.jump-scare-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: scare-image-lunge 1350ms cubic-bezier(.15,.8,.2,1) both;
+}
+.jump-scare-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, #11020440 55%, #000 100%);
+}
+.jump-scare-overlay > p {
+  position: absolute;
+  bottom: 8%;
+  left: 16px;
+  right: 16px;
+  margin: 0;
+  color: #f1d2bf;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(15px, 3vw, 25px);
+  letter-spacing: 4px;
+  text-align: center;
+  text-shadow: 0 0 14px #ed211b;
+}
+
+.soundscape-panel {
+  display: grid;
+  gap: 13px;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #51402f;
+  border-radius: 11px;
+  background: radial-gradient(ellipse at 0% 0%, #653b2226, transparent 52%), linear-gradient(135deg, #171815, #0e100f);
+  box-shadow: inset 0 1px 0 #ffffff06;
+}
+.soundscape-top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.soundscape-heading { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.soundscape-icon { display: grid; place-items: center; width: 35px; height: 35px; flex: 0 0 auto; border: 1px solid #795638; border-radius: 9px; color: #f0b27c; background: #302015; font-size: 18px; }
+.soundscape-heading > div { display: flex; flex-direction: column; gap: 5px; }
+.soundscape-heading strong { color: #eee0ce; font-size: 10px; letter-spacing: 1.35px; }
+.soundscape-heading small { color: #c79569; font-size: 10px; line-height: 1.4; }
+.soundscape-power, .soundscape-test-button { padding: 9px 12px; border: 1px solid #795538; border-radius: 7px; background: #2c1e15; color: #f1c39a; font-size: 10px; white-space: nowrap; cursor: pointer; }
+.soundscape-power:hover, .soundscape-test-button:hover:not(:disabled) { background: #50301d; border-color: #bd875c; }
+.soundscape-preset-label { margin-top: 1px; color: #a69b8c; font-size: 8px; font-weight: 700; letter-spacing: 1.5px; }
+.soundscape-presets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+.soundscape-preset { display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 0; padding: 10px 6px; border: 1px solid #3b3931; border-radius: 7px; background: #101210; color: #c8c0b4; font-size: 10px; transition: border-color 180ms ease, background 180ms ease, color 180ms ease; cursor: pointer; }
+.soundscape-preset span { color: #c28d62; font-size: 13px; }
+.soundscape-preset:hover:not(:disabled) { border-color: #8b6244; background: #211a14; }
+.soundscape-preset.active { border-color: #c38b5b; background: linear-gradient(130deg, #4c2c1b, #2a1d14); color: #ffdfbd; box-shadow: inset 0 0 0 1px #c38b5b26; }
+.soundscape-preset:disabled, .soundscape-test-button:disabled { opacity: .55; cursor: wait; }
+.soundscape-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.soundscape-description { margin: 0; color: #a9a398; font-size: 10px; line-height: 1.6; }
+.soundscape-test-button { flex: 0 0 auto; background: #3a2117; color: #ffd6af; }
+.ambience-volume { display: flex; flex-direction: column; gap: 7px; width: 100%; color: #9c9387; font-size: 8px; letter-spacing: 1px; }
+.ambience-volume span { display: flex; justify-content: space-between; gap: 10px; }
+.ambience-volume b { color: #e7b486; font-size: 9px; }
+.ambience-volume input { width: 100%; accent-color: #d09463; cursor: pointer; }
+.ambience-volume input:disabled { opacity: .4; cursor: not-allowed; }
+.soundscape-footnote { margin: -4px 0 0; color: #746f65; font-size: 8px; letter-spacing: .4px; }
+
+@keyframes scene-arrives {
+  from { opacity: .12; transform: scale(1.12); filter: blur(4px) brightness(.55); }
+  to { opacity: .95; transform: scale(1.035); filter: blur(0) brightness(1); }
+}
+@keyframes scene-slow-drift { from { transform: scale(1.035) translateX(-.25%); } to { transform: scale(1.085) translateX(.25%); } }
+@keyframes scare-screen-in { 0% { opacity: 0; } 8% { opacity: 1; } 79% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes scare-image-lunge { 0% { opacity: 0; transform: scale(.55); filter: brightness(.2) blur(9px); } 18% { opacity: 1; } 48% { transform: scale(1.06); filter: brightness(1.25) blur(0); } 100% { opacity: .92; transform: scale(1.13); filter: brightness(.72); } }
+
+@media (max-width: 950px) {
+  .forest-scene.story-art { height: 390px; }
+}
+@media (max-width: 600px) {
+  .forest-scene.hero-art { height: 225px; }
+  .forest-scene.story-art { height: 310px; min-height: 290px; }
+  .soundscape-panel { padding: 12px; }
+  .soundscape-top-row, .soundscape-bottom-row { align-items: flex-start; flex-direction: column; }
+  .soundscape-power, .soundscape-test-button { width: 100%; }
+  .soundscape-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .jump-scare-overlay > p { letter-spacing: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-background-image, .jump-scare-overlay, .jump-scare-image { animation-duration: .01ms !important; }
+}
