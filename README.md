@@ -244,7 +244,7 @@ source .venv/bin/activate
 
 ```bash
 python -m pip install --upgrade pip
-pip install fastapi uvicorn kokoro-onnx soundfile
+pip install -r requirements.txt
 ```
 
 ### Download the Kokoro model files
@@ -360,6 +360,37 @@ The Vite configuration provides the local proxy routes used by the frontend to c
 You should keep all required services running while using the app.
 
 ---
+
+## 🧪 Development and Production Commands
+
+Run these commands from the repository root.
+
+### Start development server
+
+```bash
+npm run dev
+```
+
+### Run ESLint
+
+```bash
+npm run lint
+```
+
+### Create production build
+
+```bash
+npm run build
+```
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+The production build is generated in the `dist/` directory.
+
 
 ## 📂 Project Structure
 
